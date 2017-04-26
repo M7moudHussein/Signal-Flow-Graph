@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signal Flow Graph</title>
+    <link rel="stylesheet" href="../styles/stylesheet.css">
+    <link rel="stylesheet" href="../styles/pure-release-0.6.2/master.css">
+
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <!-- START SIGMA IMPORTS -->
+    <script src="../js/sigma-js/src/sigma.core.js"></script>
+    <script src="../js/sigma-js/src/conrad.js"></script>
+    <script src="../js/sigma-js/src/utils/sigma.utils.js"></script>
+    <script src="../js/sigma-js/src/utils/sigma.polyfills.js"></script>
+    <script src="../js/sigma-js/src/sigma.settings.js"></script>
+    <script src="../js/sigma-js/src/classes/sigma.classes.dispatcher.js"></script>
+    <script src="../js/sigma-js/src/classes/sigma.classes.configurable.js"></script>
+    <script src="../js/sigma-js/src/classes/sigma.classes.graph.js"></script>
+    <script src="../js/sigma-js/src/classes/sigma.classes.camera.js"></script>
+    <script src="../js/sigma-js/src/classes/sigma.classes.quad.js"></script>
+    <script src="../js/sigma-js/src/classes/sigma.classes.edgequad.js"></script>
+    <script src="../js/sigma-js/src/captors/sigma.captors.mouse.js"></script>
+    <script src="../js/sigma-js/src/captors/sigma.captors.touch.js"></script>
+    <script src="../js/sigma-js/src/renderers/sigma.renderers.canvas.js"></script>
+    <script src="../js/sigma-js/src/renderers/sigma.renderers.webgl.js"></script>
+    <script src="../js/sigma-js/src/renderers/sigma.renderers.svg.js"></script>
+    <script src="../js/sigma-js/src/renderers/sigma.renderers.def.js"></script>
+    <script src="../js/sigma-js/src/renderers/webgl/sigma.webgl.nodes.def.js"></script>
+    <script src="../js/sigma-js/src/renderers/webgl/sigma.webgl.nodes.fast.js"></script>
+    <script src="../js/sigma-js/src/renderers/webgl/sigma.webgl.edges.def.js"></script>
+    <script src="../js/sigma-js/src/renderers/webgl/sigma.webgl.edges.fast.js"></script>
+    <script src="../js/sigma-js/src/renderers/webgl/sigma.webgl.edges.arrow.js"></script>
+    <script src="../js/sigma-js/src/renderers/canvas/sigma.canvas.labels.def.js"></script>
+    <script src="../js/sigma-js/src/renderers/canvas/sigma.canvas.hovers.def.js"></script>
+    <script src="../js/sigma-js/src/renderers/canvas/sigma.canvas.nodes.def.js"></script>
+    <script src="../js/sigma-js/src/renderers/canvas/sigma.canvas.edges.def.js"></script>
+    <script src="../js/sigma-js/src/renderers/canvas/sigma.canvas.edges.curve.js"></script>
+    <script src="../js/sigma-js/src/renderers/canvas/sigma.canvas.edges.arrow.js"></script>
+    <script src="../js/sigma-js/src/renderers/canvas/sigma.canvas.edges.curvedArrow.js"></script>
+    <script src="../js/sigma-js/src/renderers/canvas/sigma.canvas.edgehovers.def.js"></script>
+    <script src="../js/sigma-js/src/renderers/canvas/sigma.canvas.edgehovers.curve.js"></script>
+    <script src="../js/sigma-js/src/renderers/canvas/sigma.canvas.edgehovers.arrow.js"></script>
+    <script src="../js/sigma-js/src/renderers/canvas/sigma.canvas.edgehovers.curvedArrow.js"></script>
+    <script src="../js/sigma-js/src/renderers/canvas/sigma.canvas.extremities.def.js"></script>
+    <script src="../js/sigma-js/src/renderers/svg/sigma.svg.utils.js"></script>
+    <script src="../js/sigma-js/src/renderers/svg/sigma.svg.nodes.def.js"></script>
+    <script src="../js/sigma-js/src/renderers/svg/sigma.svg.edges.def.js"></script>
+    <script src="../js/sigma-js/src/renderers/svg/sigma.svg.edges.curve.js"></script>
+    <script src="../js/sigma-js/src/renderers/svg/sigma.svg.labels.def.js"></script>
+    <script src="../js/sigma-js/src/renderers/svg/sigma.svg.hovers.def.js"></script>
+    <script src="../js/sigma-js/src/middlewares/sigma.middlewares.rescale.js"></script>
+    <script src="../js/sigma-js/src/middlewares/sigma.middlewares.copy.js"></script>
+    <script src="../js/sigma-js/src/misc/sigma.misc.animation.js"></script>
+    <script src="../js/sigma-js/src/misc/sigma.misc.bindEvents.js"></script>
+    <script src="../js/sigma-js/src/misc/sigma.misc.bindDOMEvents.js"></script>
+    <script src="../js/sigma-js/src/misc/sigma.misc.drawHovers.js"></script>
+    <!-- END SIGMA IMPORTS -->
+    <script src="../js/sigma-js/plugins/sigma.plugins.neighborhoods/sigma.plugins.neighborhoods.js"></script>
+    <script src="../js/sigma-js/plugins/sigma.renderers.parallelEdges/utils.js"></script>
+    <script src="../js/sigma-js/plugins/sigma.renderers.parallelEdges/sigma.canvas.edges.curve.js"></script>
+    <script src="../js/sigma-js/plugins/sigma.renderers.parallelEdges/sigma.canvas.edges.curvedArrow.js"></script>
+    <script src="../js/sigma-js/plugins/sigma.renderers.parallelEdges/sigma.canvas.edgehovers.curve.js"></script>
+    <script src="../js/sigma-js/plugins/sigma.renderers.parallelEdges/sigma.canvas.edgehovers.curvedArrow.js"></script>
+    <script src="../js/sigma-js/plugins/sigma.renderers.edgeLabels/settings.js"></script>
+    <script src="../js/sigma-js/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.def.js"></script>
+    <script src="../js/sigma-js/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curve.js"></script>
+    <script src="../js/sigma-js/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curvedArrow.js"></script>
+    <script src="../js/app.js"></script>
+</head>
+<body>
+<div id="upper-half">
+    <div id="canvas-division"></div>
+</div>
+<hr>
+<div id="lower-half">
+    <div id="tools-bar">
+        <button class="pure-button pure-button-active" type="button" id="add-node">Add Node</button>
+        <br>
+        <input placeholder="From" class="text-box" , id="source-node">
+        <input placeholder="To" class="text-box" , id="target-node">
+        <input placeholder="Gain" class="text-box" id="edge-gain">
+        <button class="pure-button pure-button-active" type="button" id="add-edge">Add Edge</button>
+    </div>
+    <div id="tabs">
+        <div class="tab">
+            <button class="tablinks" onclick="openCity(event, 'forward-paths')" id="show-forward-paths">Forward
+                Paths
+            </button>
+            <button id="show-loops" class="tablinks" onclick="openCity(event, 'loops')">Loops</button>
+            <button id="non-touching-loops-btn" class="tablinks" onclick="openCity(event, 'non-touching-loops-div')">Non
+                Touching Loops
+            </button>
+            <button id="results-btn" class="tablinks" onclick="openCity(event, 'results')">Results</button>
+        </div>
+
+        <div id="forward-paths" class="tabcontent"></div>
+        <div id="loops" class="tabcontent"></div>
+        <div id="non-touching-loops-div" class="tabcontent">
+            <table id="loops-table" class="pure-table"></table>
+        </div>
+        <div id="results" class="tabcontent"></div>
+    </div>
+</div>
+</body>
+</html>

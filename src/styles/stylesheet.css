@@ -1,0 +1,103 @@
+body {
+    font-family: "Lato", sans-serif;
+}
+
+#upper-half {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 55%;
+    width: 100%;
+    margin: 0;
+    background-color: red;
+}
+
+#canvas-division {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+}
+
+#lower-half {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 45%;
+    width: 100%;
+    margin: 0;
+    background-color: #e0f2be;
+}
+
+#tools-bar {
+    position: absolute;
+    left: 0;
+    width: 25%;
+    height: 100%;
+    background-color: gray;
+}
+
+/*===========================================*/
+
+#tabs {
+    position: absolute;
+    width: 75%;
+    left: 25%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+/* Style the tab */
+div.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+div.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+div.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+div.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+}
+
+.text-box {
+    margin: 1%;
+    margin-left: 15%;
+    width: 70%;
+    height: 9%;
+    text-align: center;
+}
+
+#add-node, #add-edge {
+    margin: 1%;
+    margin-top: 7%;
+    margin-left: 15%;
+    width: 71%;
+}
+
+#add-edge {
+    margin-top: 1%;
+}
